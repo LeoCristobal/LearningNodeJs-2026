@@ -16,6 +16,7 @@ subscriptionRouter.post("/", (req, res) => {
 });
 
 subscriptionRouter.put("/:id", (req, res) => {
+  const { id } = req.params;
   res.send({ title: `PUT details for subscription: ${id}` });
 });
 
