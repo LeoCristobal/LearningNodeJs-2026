@@ -1,10 +1,15 @@
 import { PORT } from "./config/env.js";
 import express from "express";
-const app = express();
+import authRouter from "./routes/auth/auth.routes.js";
+import userRouter from "./routes/user/user.routes.js";
+import subscriptionRouter from "./routes/subscription/subscription.routes.js";
 
-app.get("/", (req, res) => {
-  res.json("Hello");
-});
+const app = express();
+const apiUrl = "/api/v1";
+
+app.use(`${apiUrl}/auth`, authRouter);
+app.use(`${apiUrl}/users`, userRouter);
+app.use(`${apiUrl}/subscriptions`, subscriptionRouter);
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);
 });
