@@ -75,7 +75,9 @@ const subscriptionSchema = new mongoose.Schema(
     },
 
     user: {
-      type: mongoose.schema,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "User is required"],
     },
   },
   {
@@ -88,7 +90,7 @@ subscriptionSchema.pre("save", function (next) {
     const renewalPeriods = {
       daily: 1,
       weekly: 7,
-      montly: 30,
+      monthly: 30,
       yearly: 365,
     };
 
@@ -98,11 +100,11 @@ subscriptionSchema.pre("save", function (next) {
     );
   }
 
-  if (this.renewalDate < newDate()) {
+  if (this.renewalDate < new Date()) {
     this.status = "expired";
-
-    next();
   }
+
+  next();
 });
 
 export default mongoose.model("Subscription", subscriptionSchema);

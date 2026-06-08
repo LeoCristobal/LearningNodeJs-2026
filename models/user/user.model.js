@@ -24,7 +24,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      lowercase: true,
       minlength: [5, "Password is too short"],
       maxlength: [255, "Password is too long"],
     },
@@ -34,4 +33,5 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+export default User;

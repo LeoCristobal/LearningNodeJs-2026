@@ -6,6 +6,7 @@ import subscriptionRouter from "./routes/subscription/subscription.routes.js";
 import connectToDb from "./database/mongodb.js";
 import errorMiddleWare from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
+import { authorize } from "./middleware/auth.middleware.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use([
   express.json(),
   express.urlencoded({ extended: false }),
   cookieParser(),
+  authorize,
 ]);
 
 // API ENDPOINTS
