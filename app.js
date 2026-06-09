@@ -7,6 +7,7 @@ import connectToDb from "./database/mongodb.js";
 import errorMiddleWare from "./middleware/error.middleware.js";
 import cookieParser from "cookie-parser";
 import { authorize } from "./middleware/auth.middleware.js";
+import arcjetMiddleware from "./middleware/arcjet.middleware.js";
 
 const app = express();
 
@@ -16,12 +17,12 @@ app.use([
   express.json(),
   express.urlencoded({ extended: false }),
   cookieParser(),
-  authorize,
+  arcjetMiddleware,
 ]);
 
 // API ENDPOINTS
 app.use(`${API_VERSION1}/auth`, authRouter);
-app.use(`${API_VERSION1}/users`, userRouter);
+app.use(`${API_VERSION1}/users`, authorize, userRouter);
 app.use(`${API_VERSION1}/subscriptions`, subscriptionRouter);
 
 app.listen(PORT, async () => {
